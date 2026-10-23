@@ -1,8 +1,8 @@
-\# 🌦️ SkyCast - Weather Forecasting Web App
+\ 🌦️ SkyCast - Weather Forecasting Web App
 
 
 
-\## 📌 About the Project
+\ 📌 About the Project
 
 
 
@@ -14,7 +14,7 @@ Users can search for a city to view current weather conditions and forecasts.
 
 
 
-\## ✨ Features
+\ ✨ Features
 
 
 
@@ -44,7 +44,7 @@ Users can search for a city to view current weather conditions and forecasts.
 
 
 
-\## 🛠️ Technologies Used
+\ 🛠️ Technologies Used
 
 
 
@@ -60,7 +60,7 @@ Users can search for a city to view current weather conditions and forecasts.
 
 
 
-\## 📁 Project Structure
+\ 📁 Project Structure
 
 
 
@@ -92,23 +92,23 @@ weather-forecasting/
 
 
 
-\## 🚀 Installation and Setup
+\ 🚀 Installation and Setup
 
 
 
-\### Prerequisites
+\ Prerequisites
 
 
 
-\- Python installed on your computer
+\ Python installed on your computer
 
-\- Internet connection
+\ Internet connection
 
-\- A code editor such as VS Code
+\ A code editor such as VS Code
 
 
 
-\### Step 1: Open the project folder
+\ Step 1: Open the project folder
 
 
 
@@ -116,7 +116,7 @@ Open the terminal in the project directory.
 
 
 
-\### Step 2: Install dependencies
+\ Step 2: Install dependencies
 
 
 
@@ -140,7 +140,7 @@ If you use the project's virtual environment on Windows, you can run:
 
 
 
-\### Step 3: Run the application
+\ Step 3: Run the application
 
 
 
@@ -152,7 +152,7 @@ If you use the project's virtual environment on Windows, you can run:
 
 
 
-\### Step 4: Open the application
+\ Step 4: Open the application
 
 
 
@@ -184,33 +184,33 @@ The objective of this project is to develop a practical weather forecasting appl
 
 
 
-\## 🔮 Future Improvements
+\ 🔮 Future Improvements
 
 
 
-\- Weather forecast notifications
+\ Weather forecast notifications
 
-\- Save favorite cities
+\ Save favorite cities
 
-\- Weather history and comparisons
+\ Weather history and comparisons
 
-\- Deployment on a public hosting platform
-
-
-
-\## 👩‍💻 Author
+\ Deployment on a public hosting platform
 
 
 
-\*\*Name:\*\* Durga kushwah
+ 👩‍💻 Author
 
 
 
-\*\*Course:\*\* B.Tech - Computer Science and Engineering
+Name: kajal chourey
+ 
+
+
+Course: B.Tech - Computer Science and Engineering
 
 
 
-\## 📄 License
+📄 License
 
 
 
