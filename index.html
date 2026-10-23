@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10152b">
+  <title>SkyCast | Smart Weather</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-icon">☀</span>
+        <span>Sky<span class="brand-accent">Cast</span></span>
+      </a>
+
+      <div class="header-right">
+        <span class="live-dot"></span>
+        <span class="live-label">LIVE FORECAST</span>
+        <button id="themeToggle" class="icon-button" title="Toggle theme"
+          aria-label="Toggle dark or light theme">☼</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL WEATHER STATION</p>
+          <h1>Weather, <span>reimagined.</span></h1>
+          <p class="muted">Explore the sky. Plan your day with confidence.</p>
+        </div>
+        <div class="updated" id="updated">Ready to check the weather</div>
+      </section>
+
+      <form id="searchForm" class="search-bar">
+        <span class="search-symbol">⌕</span>
+        <input id="cityInput" type="text" placeholder="Search any city, e.g. Indore"
+          aria-label="City name" required>
+        <button type="submit" class="primary-button">Search <span>→</span></button>
+        <button type="button" id="locationBtn" class="location-button"
+          title="Use my current location">◎ <span>My location</span></button>
+      </form>
+
+      <div id="status" class="status" role="status" aria-live="polite">
+        Loading weather...
+      </div>
+
+      <section class="main-grid">
+        <article class="hero-card panel">
+          <div class="hero-top">
+            <div>
+              <p class="eyebrow">CURRENT WEATHER</p>
+              <h2 id="cityName">--</h2>
+              <p id="countryName" class="muted">Search for a city</p>
+            </div>
+            <span class="date-pill" id="currentDate">Today</span>
+          </div>
+
+          <div class="hero-weather">
+            <div>
+              <div class="temperature"><span id="temperature">--</span><sup>°C</sup></div>
+              <h3 id="condition">Waiting for data</h3>
+              <p class="muted">Feels like <strong id="feelsLike">--°C</strong></p>
+            </div>
+            <div class="weather-art" id="weatherIcon" aria-hidden="true">🌤️</div>
+          </div>
+
+          <div class="hero-footer">
+            <div><span>☀</span><div><small>Sunrise</small><strong id="sunrise">--:--</strong></div></div>
+            <div><span>🌙</span><div><small>Sunset</small><strong id="sunset">--:--</strong></div></div>
+            <div><span>☂</span><div><small>Rain chance</small><strong id="rainChance">--%</strong></div></div>
+          </div>
+        </article>
+
+        <article class="panel metrics-panel">
+          <div class="section-heading">
+            <div><p class="eyebrow">WEATHER DETAILS</p><h2>Today's insights</h2></div>
+            <span class="heading-icon">✦</span>
+          </div>
+          <div class="metric-grid">
+            <div class="metric-card"><span class="metric-icon">💧</span><small>Humidity</small><strong id="humidity">--%</strong><span class="metric-note">Relative humidity</span></div>
+            <div class="metric-card"><span class="metric-icon">💨</span><small>Wind speed</small><strong id="wind">-- km/h</strong><span class="metric-note">Surface wind</span></div>
+            <div class="metric-card"><span class="metric-icon">◉</span><small>Pressure</small><strong id="pressure">-- hPa</strong><span class="metric-note">Sea-level pressure</span></div>
+            <div class="metric-card"><span class="metric-icon">☀️</span><small>UV index</small><strong id="uv">--</strong><span class="metric-note">Daily maximum</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel section-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">PLAN AHEAD</p><h2>Hourly forecast</h2></div>
+          <span class="sub-label">Next 24 hours</span>
+        </div>
+        <div class="chart-wrap"><canvas id="hourlyChart" aria-label="Hourly temperature chart"></canvas></div>
+        <div id="hourlyList" class="hourly-list"></div>
+      </section>
+
+      <section class="panel section-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">THE WEEK AHEAD</p><h2>7-day forecast</h2></div>
+          <span class="sub-label">Daily outlook</span>
+        </div>
+        <div id="dailyForecast" class="daily-list"></div>
+      </section>
+
+      <section class="panel section-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">BREATHE SMARTER</p><h2>Air quality</h2></div>
+          <span id="aqiBadge" class="aqi-badge">AQI --</span>
+        </div>
+        <div id="aqiContent" class="aqi-content">
+          <p class="muted">Air quality data will appear here.</p>
+        </div>
+        <p class="fine-print">AQI is an estimate from Open-Meteo's modelled data, not a local monitoring station reading.</p>
+      </section>
+
+      <section class="panel section-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">EXPLORE YOUR AREA</p><h2>Weather map</h2></div>
+          <span class="sub-label" id="mapCoordinates">Location map</span>
+        </div>
+        <div id="weatherMap" aria-label="Interactive map of selected location"></div>
+        <p class="fine-print">Map data © OpenStreetMap contributors.</p>
+      </section>
+
+      <section class="panel section-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">STAY PREPARED</p><h2>Weather advisories</h2></div>
+          <span class="sub-label">Forecast-based</span>
+        </div>
+        <div id="alertsList" class="alerts-list"></div>
+        <p class="fine-print">These are app-generated forecast advisories, not official emergency alerts.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="brand footer-brand">☀ Sky<span class="brand-accent">Cast</span></div>
+      <p>Weather data by Open-Meteo · Map © OpenStreetMap contributors</p>
+      <p>Built for learning and planning.</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
